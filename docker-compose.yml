@@ -1,0 +1,6 @@
+﻿services:
+  songapi:
+    image: songapi
+    build:
+      context: .
+      dockerfile: SongApi/Dockerfile
