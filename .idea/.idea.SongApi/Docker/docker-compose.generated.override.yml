@@ -1,0 +1,23 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  songapi:
+    build:
+      context: "C:\\Users\\fuaad\\Desktop\\projects new\\Webs\\SongsFullStack\\Back_End\\\
+        SongApi"
+      dockerfile: "SongApi/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/SongApi.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "songapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\fuaad\\.nuget\\packages:/home/app/.nuget/packages"
+    - "C:\\Users\\fuaad\\Desktop\\projects new\\Webs\\SongsFullStack\\Back_End\\SongApi\\\
+      SongApi:/app:rw"
+    - "C:\\Users\\fuaad\\Desktop\\projects new\\Webs\\SongsFullStack\\Back_End\\SongApi:/src:rw"
+    working_dir: "/app"

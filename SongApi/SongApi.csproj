@@ -29,10 +29,4 @@
       </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Entities\Mapper\" />
-      <Folder Include="Interface\" />
-      <Folder Include="Repository\" />
-    </ItemGroup>
-
 </Project>
