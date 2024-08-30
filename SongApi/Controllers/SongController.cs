@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SongApi.Entities.Dtos;
 using SongApi.Entities.Dtos.songDto;
 using SongApi.Entities.Mapper;
 using SongApi.Interface;
@@ -16,7 +17,13 @@ public class SongController(ISongRepository songRepository, ICategoryRepository 
     {
         var result = await _songRepository.GetAllSongsAsync();
         var finalView = result.Select(song => song.MapToViewSongDto());
-        return Ok(finalView);
+        
+        return Ok(new ApiMultiResponse
+        {
+            IsSuccess = true,
+            Data = finalView,
+            Error = null
+        });
     }
 
     [HttpGet]
@@ -26,10 +33,20 @@ public class SongController(ISongRepository songRepository, ICategoryRepository 
         var result = await _songRepository.GetSongByIdAsync(id);
         if (result == null)
         {
-            return NotFound();
+            return NotFound(new ApiSingleResponse
+            {
+                IsSuccess = false,
+                Data = null,
+                Error = "the song could not be found."
+            });
         }
         var finalView = result.MapToViewSongDto();
-        return Ok(finalView);
+        return Ok(new ApiSingleResponse
+        {
+            IsSuccess = true,
+            Data = finalView,
+            Error = null
+        });
     }
 
     [HttpPost]
@@ -40,15 +57,25 @@ public class SongController(ISongRepository songRepository, ICategoryRepository 
             var categoryExists = await _categoryRepository.CategoryExistsAsync(createSongDto.CategoryId);
             if (!categoryExists)
             {
-                return BadRequest("Category does not exist");
+                return BadRequest(new ApiSingleResponse
+                {
+                    IsSuccess = false,
+                    Data = null,
+                    Error = "Category does not exist"
+                });
             }
             var newSong = createSongDto.MapToSong();
             var song = await _songRepository.AddSongAsync(newSong);
-            return CreatedAtAction(nameof(GetSong), new { id = song?.Id }, song?.MapToViewSongDto());
+            return CreatedAtAction(nameof(GetSong), new { id = song?.Id }, new ApiSingleResponse
+            {
+                IsSuccess = true,
+                Data = song?.MapToViewSongDto(),
+                Error = null
+            });
         }
         catch (Exception e)
         {
-            return BadRequest(e.Message);
+            return BadRequest(new ApiSingleResponse{IsSuccess = false, Error = e.Message});
         }
     }
 
@@ -59,26 +86,37 @@ public class SongController(ISongRepository songRepository, ICategoryRepository 
         var songExists = await _songRepository.SongExistsAsync(id);
         if (!songExists)
         {
-            return BadRequest("Song does not exist");
+            return BadRequest( new ApiSingleResponse
+            {
+                IsSuccess = false,
+                Data = null,
+                Error = "Song does not exist"
+            });
         }
 
-        if (updateSongDto.CategoryId != null)
+        if (updateSongDto.CategoryId is not null)
         {
-            if (updateSongDto.CategoryId != null)
+            var categoryExists = await _categoryRepository.CategoryExistsAsync(updateSongDto.CategoryId.Value);
+            if (!categoryExists)
             {
-                var categoryExists = await _categoryRepository.CategoryExistsAsync(updateSongDto.CategoryId.Value);
-                if (!categoryExists)
+                return BadRequest(new ApiSingleResponse
                 {
-                    return BadRequest("Category does not exist");
-                }
+                    IsSuccess = false,
+                    Error = "Category does not exist",
+                    Data = null
+                });
             }
-            
         }
         
 
         var result = await _songRepository.UpdateSongAsync(id, updateSongDto);
         
-        return Ok(result?.MapToViewSongDto());
+        return Ok(new ApiSingleResponse
+        {
+            IsSuccess = true,
+            Data = result?.MapToViewSongDto(),
+            Error = null
+        });
     }
 
     [HttpDelete]
@@ -88,8 +126,18 @@ public class SongController(ISongRepository songRepository, ICategoryRepository 
         var result = await _songRepository.DeleteSongAsync(id);
         if (!result)
         {
-            return NotFound();
+            return NotFound(new ApiSingleResponse
+            {
+                IsSuccess = false,
+                Error = "Song does not exist",
+                Data = null
+            });
         }
-        return Ok();
+        return Ok(new ApiSingleResponse
+        {
+            IsSuccess = true,
+            Data = null,
+            Error = null
+        });
     }
 }
