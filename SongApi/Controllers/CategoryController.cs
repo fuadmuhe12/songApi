@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SongApi.Entities.Dtos;
 using SongApi.Interface;
 
 namespace SongApi.Controllers;
@@ -12,6 +13,11 @@ public class CategoryController(ICategoryRepository categoryRepository):Controll
     public async Task<IActionResult> GetAllCategoriesAsync()
     {
         var result = await _categoryRepository.GetCategoriesAsync();
-        return Ok(result);
+        return Ok(new CategoryApiMultiResponse
+        {
+            Data = result,
+            IsSuccess = true,
+            Error = null
+        });
     }
 }
