@@ -9,8 +9,9 @@ public class ViewSongDto
     public required string Artist { get; set; }
     public string? Description { get; set; } = string.Empty;
     public required string CoverPhotoUrl { get; set; }
+    public required int Duration { get; set; }
     public required string AudioUrl { get; set; }
     public required Category Category { get; set; }
-    public DateOnly CreatedDate { get; set; } 
-    public DateOnly UpdatedDate { get; set; } 
+    public DateTime CreatedDate { get; set; } 
+    public DateTime UpdatedDate { get; set; } 
 }

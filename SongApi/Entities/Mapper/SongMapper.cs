@@ -16,6 +16,7 @@ public static class SongMapper
             AudioUrl = song.AudioUrl,
             CoverPhotoUrl = song.CoverPhotoUrl,
             CreatedDate = song.CreatedDate,
+            Duration = song.Duration,
             UpdatedDate = song.UpdatedDate,
             Description = song.Description,
             Id = song.Id,
@@ -30,6 +31,7 @@ public static class SongMapper
             Title = createSongDto.Title,
             AudioUrl = createSongDto.AudioUrl,
             CoverPhotoUrl = createSongDto.CoverPhotoUrl,
+            Duration = createSongDto.Duration,
             CategoryId = createSongDto.CategoryId,
             Description = createSongDto.Description,
         };

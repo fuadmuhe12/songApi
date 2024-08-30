@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SongApi.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class seedCategory : Migration
+    public partial class initialMigration_WithSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,9 +37,10 @@ namespace SongApi.Data.Migrations
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     CoverPhotoUrl = table.Column<string>(type: "TEXT", nullable: false),
                     AudioUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    Duration = table.Column<int>(type: "INTEGER", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    UpdatedDate = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

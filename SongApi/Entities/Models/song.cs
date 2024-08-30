@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices.JavaScript;
+
 namespace SongApi.Entities.Models;
 
 public class Song
@@ -8,8 +10,9 @@ public class Song
     public string? Description { get; set; }
     public required string CoverPhotoUrl { get; set; }
     public required string AudioUrl { get; set; }
+    public required int Duration { get; set; }
     public int CategoryId { get; set; }
     public Category? Category { get; set; }
-    public DateOnly CreatedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    public DateOnly UpdatedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateTime CreatedDate { get; set; } = (DateTime.Now);
+    public DateTime UpdatedDate { get; set; } =(DateTime.Now);
 }

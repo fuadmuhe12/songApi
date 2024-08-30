@@ -66,7 +66,12 @@ public class SongRepository(SongContext context) : ISongRepository
             result.Title = updateSongDto.Title;
         }
 
-        result.UpdatedDate = DateOnly.FromDateTime(DateTime.Now);
+        if (updateSongDto.Duration is not null)
+        {
+            result.Duration = updateSongDto.Duration.Value;
+        }
+
+        result.UpdatedDate = (DateTime.Now);
             
 
         await _context.SaveChangesAsync();

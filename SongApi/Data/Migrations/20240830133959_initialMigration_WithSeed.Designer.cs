@@ -11,8 +11,8 @@ using SongApi.Data;
 namespace SongApi.Data.Migrations
 {
     [DbContext(typeof(SongContext))]
-    [Migration("20240828175441_seedCategory")]
-    partial class seedCategory
+    [Migration("20240830133959_initialMigration_WithSeed")]
+    partial class initialMigration_WithSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,17 +73,20 @@ namespace SongApi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("CreatedDate")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Duration")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("UpdatedDate")
+                    b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
