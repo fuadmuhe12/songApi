@@ -18,11 +18,14 @@ public class SongRepository(SongContext context) : ISongRepository
         {
             data = data.Where(song => song.CategoryId == queryData.CategoryId);
         }
+        
+        var final =  await data.ToListAsync();
+        var result = final.Where(Song => Song.Id != null);
         if(!string.IsNullOrEmpty(queryData.Search))
         {
-         data = data.Where(song => song.Title.Contains(queryData.Search));   
+            result = final.Where(songdata => songdata.Title.ToLower().Contains(queryData.Search.ToLower()));
         }
-        return await data.ToListAsync();    
+        return !string.IsNullOrEmpty(queryData.Search) ? result :final;
     }
 
     public async Task<Song?> GetSongByIdAsync(int id)
