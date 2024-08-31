@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowOrigin",
         builder =>
         {
-            builder.WithOrigins("http://localhost:6526", "https://songapi-j4rk.onrender.com")
+            builder.WithOrigins("http://localhost:6526", "https://songapi-j4rk.onrender.com", "https://song-player-f.vercel.app")
                    .AllowAnyHeader()
                    .AllowAnyMethod();
         });
