@@ -9,11 +9,11 @@
       <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="appStore" uuid="058e90c3-090d-4840-aba1-a9ac82fa4b8f">
+    <data-source source="LOCAL" name="appStore" uuid="4daa06d8-433d-4c65-b2bc-d358e230cf41">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\fuaad\Desktop\projects new\Webs\SongsFullStack\Back_End\SongApi\SongApi\Data\appStore.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\fuaad\Desktop\projects new\Webs\SongsFullStack\Back_End\SongApi\SongApi\appStore.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>

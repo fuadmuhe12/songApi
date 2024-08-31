@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SongApi.Data;
 using SongApi.Entities.Dtos.songDto;
 using SongApi.Entities.Models;
+using SongApi.Helper;
 using SongApi.Interface;
 
 namespace SongApi.Repository;
@@ -10,9 +11,18 @@ public class SongRepository(SongContext context) : ISongRepository
 {
     private readonly SongContext _context = context;
 
-    public async Task<IEnumerable<Song>> GetAllSongsAsync()
+    public async Task<IEnumerable<Song>> GetAllSongsAsync(QueryData queryData)
     {
-        return await _context.Songs.Include(song => song.Category).ToListAsync();
+        var  data = _context.Songs.Include(song => song.Category).AsQueryable();
+        if (queryData.CategoryId.HasValue)
+        {
+            data = data.Where(song => song.CategoryId == queryData.CategoryId);
+        }
+        if(!string.IsNullOrEmpty(queryData.Search))
+        {
+         data = data.Where(song => song.Title.Contains(queryData.Search));   
+        }
+        return await data.ToListAsync();    
     }
 
     public async Task<Song?> GetSongByIdAsync(int id)

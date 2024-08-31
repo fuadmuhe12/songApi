@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SongApi.Entities.Dtos;
 using SongApi.Entities.Dtos.songDto;
 using SongApi.Entities.Mapper;
+using SongApi.Helper;
 using SongApi.Interface;
 
 namespace SongApi.Controllers;
@@ -13,9 +15,10 @@ public class SongController(ISongRepository songRepository, ICategoryRepository 
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
 
     [HttpGet]
-    public async Task<IActionResult> GetSongs()
+    
+    public async Task<IActionResult> GetSongs([FromQuery] QueryData queryData )
     {
-        var result = await _songRepository.GetAllSongsAsync();
+        var result = await _songRepository.GetAllSongsAsync(queryData);
         var finalView = result.Select(song => song.MapToViewSongDto());
         
         return Ok(new ApiMultiResponse
